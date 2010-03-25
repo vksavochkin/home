@@ -1,0 +1,8 @@
+[core]
+	quotepath = false
+[log]
+	date = iso
+[color]
+	diff = auto
+	status = auto
+	branch = auto

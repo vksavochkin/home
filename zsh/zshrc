@@ -1,0 +1,134 @@
+# /etc/zsh/zshrc: system-wide .zshrc file for zsh(1).
+#
+# This file is sourced only for interactive shells. It
+# should contain commands to set up aliases, functions,
+# options, key bindings, etc.
+#
+# Global Order: zshenv, zprofile, zshrc, zlogin
+
+READNULLCMD=${PAGER:-/usr/bin/pager}
+
+if [[ "$TERM" != emacs ]]; then
+[[ -z "$terminfo[kdch1]" ]] || bindkey -M emacs "$terminfo[kdch1]" delete-char
+[[ -z "$terminfo[khome]" ]] || bindkey -M emacs "$terminfo[khome]" beginning-of-line
+[[ -z "$terminfo[kend]" ]] || bindkey -M emacs "$terminfo[kend]" end-of-line
+[[ -z "$terminfo[kich1]" ]] || bindkey -M emacs "$terminfo[kich1]" overwrite-mode
+[[ -z "$terminfo[kdch1]" ]] || bindkey -M vicmd "$terminfo[kdch1]" vi-delete-char
+[[ -z "$terminfo[khome]" ]] || bindkey -M vicmd "$terminfo[khome]" vi-beginning-of-line
+[[ -z "$terminfo[kend]" ]] || bindkey -M vicmd "$terminfo[kend]" vi-end-of-line
+[[ -z "$terminfo[kich1]" ]] || bindkey -M vicmd "$terminfo[kich1]" overwrite-mode
+
+[[ -z "$terminfo[cuu1]" ]] || bindkey -M viins "$terminfo[cuu1]" vi-up-line-or-history
+[[ -z "$terminfo[cuf1]" ]] || bindkey -M viins "$terminfo[cuf1]" vi-forward-char
+[[ -z "$terminfo[kcuu1]" ]] || bindkey -M viins "$terminfo[kcuu1]" vi-up-line-or-history
+[[ -z "$terminfo[kcud1]" ]] || bindkey -M viins "$terminfo[kcud1]" vi-down-line-or-history
+[[ -z "$terminfo[kcuf1]" ]] || bindkey -M viins "$terminfo[kcuf1]" vi-forward-char
+[[ -z "$terminfo[kcub1]" ]] || bindkey -M viins "$terminfo[kcub1]" vi-backward-char
+
+# ncurses fogyatekos
+[[ "$terminfo[kcuu1]" == "O"* ]] && bindkey -M viins "${terminfo[kcuu1]/O/[}" vi-up-line-or-history
+[[ "$terminfo[kcud1]" == "O"* ]] && bindkey -M viins "${terminfo[kcud1]/O/[}" vi-down-line-or-history
+[[ "$terminfo[kcuf1]" == "O"* ]] && bindkey -M viins "${terminfo[kcuf1]/O/[}" vi-forward-char
+[[ "$terminfo[kcub1]" == "O"* ]] && bindkey -M viins "${terminfo[kcub1]/O/[}" vi-backward-char
+[[ "$terminfo[khome]" == "O"* ]] && bindkey -M viins "${terminfo[khome]/O/[}" beginning-of-line
+[[ "$terminfo[kend]" == "O"* ]] && bindkey -M viins "${terminfo[kend]/O/[}" end-of-line
+[[ "$terminfo[khome]" == "O"* ]] && bindkey -M emacs "${terminfo[khome]/O/[}" beginning-of-line
+[[ "$terminfo[kend]" == "O"* ]] && bindkey -M emacs "${terminfo[kend]/O/[}" end-of-line
+fi
+
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
+			     /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+
+unalias run-help
+autoload run-help
+autoload -U compinit
+compinit -i
+autoload -U incremental-complete-word
+zle -N incremental-complete-word
+autoload -U insert-files
+zle -N insert-files
+autoload -U predict-on
+zle -N predict-on
+PROMPT=$'%{\e[1;32m%}[%m:%{\e[1;34m%}%~%{\e[1;32m%}] %{\e[1;31m%}%#%{\e[0m%} '
+RPROMPT=$'%{\e[1;32m%}[%{\e[1;33m%}%T%{\e[1;32m%}]%{\e[0m%}'
+precmd()
+{
+	[[ -t 1 ]] || return
+	case $TERM in
+		*xterm*|screen|rxvt|(dt|k|E)term*) print -Pn "\e]2; $LOGNAME@$HOST [%~]\a"
+		;;
+	esac
+}
+preexec() {
+	[[ -t 1 ]] || return
+	case $TERM in
+		*xterm*|screen|rxvt|(dt|k|E)term*) print -Pn "\e]2;<$1> $LOGNAME@$HOST [%~]\a"
+
+		;;
+	esac
+}
+zmodload -a zsh/stat stat
+zmodload -a zsh/zpty zpty
+zmodload -a zsh/zprof zprof
+zmodload -ap zsh/mapfile mapfile
+zstyle ':completion:*:default' list-colors '${LS_COLORS}'
+zstyle ':completion:*' completer _complete _list _oldlist _expand _ignored _match _correct _approximate _prefix
+zstyle ':completion:*' insert-unambiguous true
+zstyle ':completion:*' add-space true
+zstyle ':completion:*:processes' command 'ps -xuf'
+zstyle ':completion:*:processes-names' command 'ps xho command'
+zstyle ':completion:*:processes' sort false
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $((
+($#PREFIX+$#SUFFIX)/3 )) numeric )'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*:functions' ignored-patterns '_*'
+zstyle ':completion:*' menu select=long-list select=0
+zstyle ':completion:*' old-menu false
+zstyle ':completion:*' original true
+zstyle ':completion:*' substitute 1
+zstyle ':completion:*' use-compctl true
+zstyle ':completion:*' verbose true
+zstyle ':completion:*' word true
+
+### показ классификации файлов в цвете и символически
+alias ls='ls -F --color=auto'
+
+### вывog в gлuннoм фopмaтe
+alias ll='ls -l'
+
+### вывog всех файлов, включая dot-фaйлы, kpoмe . u ..
+alias la='ls -A'
+
+### вывog вcex фaйлoв в gлuннoм фopмaтe, вkлючaя inodes
+alias li='ls -ial'
+
+### вывод только каталогов
+alias lsd='ls -ld *(-/DN)'
+
+### вывog тoльko dot-фaйлoв
+alias lsa='ls -ld .*'
+
+### синтаксическая подсветка диффов
+alias svn-diff='svn diff --diff-cmd colordiff'
+
+# Ниже даны опции, относящиеся к функциям zsh,
+# которыми собственно и определяется мощь этой оболочки
+# Shell functions
+setenv() { typeset -x "${1}${1:+=}${(@)argv[2,$#]}" }  # csh compatibility
+freload() { while (( $# )); do; unfunction $1; autoload -U $1; shift; done }
+
+# Where to look for autoloaded function definitions
+fpath=($fpath ~/.zfunc)
+
+# Autoload all shell functions from all directories in $fpath (following
+# symlinks) that have the executable bit on (the executable bit is not
+# necessary, but gives you an easy way to stop the autoloading of a
+# particular shell function). $fpath should not be empty for this to work.
+for func in $^fpath/*(N-.x:t); autoload $func
+
+# automatically remove duplicates from these arrays
+typeset -U path cdpath fpath manpath
+
+umask 0002
+

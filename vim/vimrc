@@ -1,0 +1,158 @@
+" All system-wide defaults are set in $VIMRUNTIME/debian.vim (usually just
+" /usr/share/vim/vimcurrent/debian.vim) and sourced by the call to :runtime
+" you can find below.  If you wish to change any of those settings, you should
+" do it in this file (/etc/vim/vimrc), since debian.vim will be overwritten
+" everytime an upgrade of the vim packages is performed.  It is recommended to
+" make changes after sourcing debian.vim since it alters the value of the
+" 'compatible' option.
+
+" This line should not be removed as it ensures that various options are
+" properly set to work with the Vim-related packages available in Debian.
+runtime! debian.vim
+" Uncomment the next line to make Vim more Vi-compatible
+" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
+" options, so any other options should be set AFTER setting 'compatible'.
+"set compatible
+
+" Vim5 and later versions support syntax highlighting. Uncommenting the next
+" line enables syntax highlighting by default.
+syntax on
+
+" If using a dark background within the editing area and syntax highlighting
+" turn on this option as well
+"set background=dark
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+"if has("autocmd")
+"  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+"    \| exe "normal g'\"" | endif
+"endif
+
+" Uncomment the following to have Vim load indentation rules according to the
+" detected filetype. Per default Debian Vim only load filetype specific
+" plugins.
+"if has("autocmd")
+"  filetype indent on
+"endif
+
+" The following are commented out as they cause vim to behave a lot
+" differently from regular Vi. They are highly recommended though.
+"set showcmd		" Show (partial) command in status line.
+"set showmatch		" Show matching brackets.
+"set ignorecase		" Do case insensitive matching
+"set smartcase		" Do smart case matching
+"set incsearch		" Incremental search
+"set autowrite		" Automatically save before commands like :next and :make
+"set hidden             " Hide buffers when they are abandoned
+"set mouse=a		" Enable mouse usage (all modes) in terminals
+
+
+" Source a global configuration file if available
+" XXX Deprecated, please move your changes here in /etc/vim/vimrc
+if filereadable("/etc/vim/vimrc.local")
+  source /etc/vim/vimrc.local
+endif
+"set fileencoding=utf-8
+"set termencoding=koi8-r
+
+" <F7> File fileformat (dos - <CR> <NL>, unix - <NL>, mac - <CR>)
+map <F7>	:execute RotateFileFormat()<CR>
+vmap <F7>	<C-C><F7>
+imap <F7>	<C-O><F7>
+let b:fformatindex=0
+function! RotateFileFormat()
+  let y = -1
+  while y == -1
+    let encstring = "#unix#dos#mac#"
+    let x = match(encstring,"#",b:fformatindex)
+    let y = match(encstring,"#",x+1)
+    let b:fformatindex = x+1
+    if y == -1
+      let b:fformatindex = 0
+    else
+      let str = strpart(encstring,x+1,y-x-1)
+      return ":set fileformat=".str
+    endif
+  endwhile
+endfunction
+
+" <F8> File encoding for open
+" ucs-2le - MS Windows unicode encoding
+map <F8>	:execute RotateEnc()<CR>
+vmap <F8>	<C-C><F8>
+imap <F8>	<C-O><F8>
+let b:encindex=0
+function! RotateEnc()
+  let y = -1
+  while y == -1
+    let encstring = "#koi8-r#cp1251#8bit-cp866#utf-8#ucs-2le#"
+    let x = match(encstring,"#",b:encindex)
+    let y = match(encstring,"#",x+1)
+    let b:encindex = x+1
+    if y == -1
+      let b:encindex = 0
+    else
+      let str = strpart(encstring,x+1,y-x-1)
+      return ":e ++enc=".str
+    endif
+  endwhile
+endfunction
+
+" <Shift+F8> Force file encoding for open (encoding = fileencoding)
+map <S-F8>	:execute ForceRotateEnc()<CR>
+vmap <S-F8>	<C-C><S-F8>
+imap <S-F8>	<C-O><S-F8>
+let b:encindex=0
+function! ForceRotateEnc()
+  let y = -1
+  while y == -1
+    let encstring = "#koi8-r#cp1251#8bit-cp866#utf-8#ucs-2le#"
+    let x = match(encstring,"#",b:encindex)
+    let y = match(encstring,"#",x+1)
+    let b:encindex = x+1
+    if y == -1
+      let b:encindex = 0
+    else
+      let str = strpart(encstring,x+1,y-x-1)
+      :execute "set encoding=".str
+      return ":e ++enc=".str
+    endif
+  endwhile
+endfunction
+
+" <Ctrl+F8> File encoding for save (convert)
+map <C-F8>	:execute RotateFEnc()<CR>
+vmap <C-F8>	<C-C><C-F8>
+imap <C-F8>	<C-O><C-F8>
+let b:fencindex=0
+function! RotateFEnc()
+  let y = -1
+  while y == -1
+    let encstring = "#koi8-r#cp1251#8bit-cp866#utf-8#ucs-2le#"
+    let x = match(encstring,"#",b:fencindex)
+    let y = match(encstring,"#",x+1)
+    let b:fencindex = x+1
+    if y == -1
+      let b:fencindex = 0
+    else
+      let str = strpart(encstring,x+1,y-x-1)
+      return ":set fenc=".str
+    endif
+  endwhile
+endfunction
+
+map <C-p> :silent 1,$!xmllint --format --recover - 2>/dev/null
+
+set statusline=%<%f%h%m%r%=format=%{&fileformat}\ file=%{&fileencoding}\ enc=%{&encoding}\ %b\ 0x%B\ %l,%c%V\ %P
+set laststatus=2
+map <F6> :%w !xmllint --valid --noout -<CR>
+map <F5> :%!xmllint --format -<CR>
+
+" vova: Табы заменяем четырьмя пробелами.
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+set modeline
+
