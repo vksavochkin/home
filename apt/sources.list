@@ -1,3 +1,0 @@
-deb http://deb:9999/debian lenny main contrib non-free
-deb http://deb:9999/backports.org lenny-backports main contrib non-free
-
