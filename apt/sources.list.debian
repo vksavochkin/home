@@ -1,0 +1,8 @@
+deb cdrom:[Debian GNU/Linux 5.0.4 _Lenny_ - Official amd64 CD Binary-1 20100131-21:33]/ lenny main
+
+deb http://security.debian.org/ lenny/updates main
+deb-src http://security.debian.org/ lenny/updates main
+
+deb http://volatile.debian.org/debian-volatile lenny/volatile main
+deb-src http://volatile.debian.org/debian-volatile lenny/volatile main
+
