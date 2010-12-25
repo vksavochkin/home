@@ -41,11 +41,3 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
 
 unalias run-help
 autoload run-help
-
-# If you don't want compinit called here, place the line
-# skip_global_compinit=1
-# in your $ZDOTDIR/.zshenv or $ZDOTDIR/.zprofice
-if [[ -z "$skip_global_compinit" ]]; then
-  autoload -U compinit
-  compinit
-fi
