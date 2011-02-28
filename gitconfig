@@ -1,3 +1,6 @@
+# /etc/gitconfig
+# vi: set noexpandtab tabstop=8:
+
 [core]
 	quotepath = false
 [log]
@@ -6,3 +9,7 @@
 	diff = auto
 	status = auto
 	branch = auto
+[alias]
+	st = status
+	ba = branch -a
+
