@@ -1,0 +1,8 @@
+Package: *
+Pin: release o=Debian,n=squeeze
+Pin-Priority: 990
+
+Package: *
+Pin: release o=Debian,n=sid
+Pin-Priority: 10
+

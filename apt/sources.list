@@ -1,0 +1,9 @@
+
+deb http://deb/debian squeeze main contrib non-free
+deb http://deb/debian-security squeeze/updates main contrib non-free
+deb http://deb/debian squeeze-updates main contrib non-free
+
+deb-src http://deb/debian squeeze main contrib non-free
+deb-src http://deb/debian-security squeeze/updates main contrib non-free
+deb-src http://deb/debian squeeze-updates main
+
