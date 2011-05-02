@@ -3,6 +3,7 @@
 
 [core]
 	quotepath = false
+	sharedRepository = group
 [log]
 	date = iso
 [color]
