@@ -7,14 +7,3 @@
 # msgs, from, etc.)
 #
 # Global Order: zshenv, zprofile, zshrc, zlogin
-
-### При заходе по ssh пишем в заголовок окна терминала имя хоста
-if [[ -t 1 ]]; then
-    case $TERM in
-        *xterm*|screen|rxvt|(dt|k|E)term*)
-            #print -Pn "\e]2; $LOGNAME@$HOST [%~]\a"
-            print -Pn "\e]2; $HOST\a"
-        ;;
-    esac
-fi
-
