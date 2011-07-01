@@ -46,27 +46,6 @@ autoload run-help
 ### Дальше наши правки
 ##########################################################################
 
-### Больше автодополнения
-autoload -U incremental-complete-word
-zle -N incremental-complete-word
-autoload -U insert-files
-zle -N insert-files
-autoload -U predict-on
-zle -N predict-on
-
-
-### nice green prompt
-#PROMPT=$'%{\e[1;32m%}[%m:%{\e[1;34m%}%~%{\e[1;32m%}] %{\e[1;31m%}%#%{\e[0m%} '
-#RPROMPT=$'%{\e[1;32m%}[%{\e[1;33m%}%T%{\e[1;32m%}]%{\e[0m%}'
-
-# Часы справа портят копипаст с консоли, надоело,
-# поэтому они теперь слева и с секундами:
-PROMPT=$'%{\e[1;32m%}[%{\e[1;33m%}%D{%T}%{\e[1;32m%}]%{\e[0m%} %{\e[1;32m%}[%m:%{\e[1;34m%}%~%{\e[1;32m%}] %{\e[1;31m%}%#%{\e[0m%} '
-
-
-### Строка приглашения mysql - [time] host:db>_
-export MYSQL_PS1='[\R:\m:\s]\ \h:\d>\_'
-
 
 ### Смена заголовка терминала
 # Перед каждым выводом PROMPT'а
@@ -90,6 +69,7 @@ preexecDISABLED() {
     esac
 }
 
+
 ### Полезные алиасы для ls
 # формат даты всегда ISO
 alias ls='ls -F --color=auto --time-style=long-iso'
@@ -100,6 +80,7 @@ alias l='ls -al'
 alias lsd='ls -ld *(-/DN)'
 alias lsa='ls -ld .*'
 
+
 ### Синтаксическая подсветка диффов
 if test -x "`which colordiff`"; then
     alias svn-diff='svn diff --diff-cmd colordiff'
@@ -108,25 +89,27 @@ else
 fi
 
 
+### Воспользуемся рекомендуемыми параметрами, включим все навороты сразу
+if test -r /etc/zsh/newuser.zshrc.recommended; then
+    . /etc/zsh/newuser.zshrc.recommended
+fi
+
+
+### Переопределим приглашение, стандартные схемы ужасны
+
+# nice green prompt
+#PROMPT=$'%{\e[1;32m%}[%m:%{\e[1;34m%}%~%{\e[1;32m%}] %{\e[1;31m%}%#%{\e[0m%} '
+#RPROMPT=$'%{\e[1;32m%}[%{\e[1;33m%}%T%{\e[1;32m%}]%{\e[0m%}'
+
+# Часы справа портят копипаст с консоли, надоело,
+# поэтому они теперь слева и с секундами:
+PROMPT=$'%{\e[1;32m%}[%{\e[1;33m%}%D{%T}%{\e[1;32m%}]%{\e[0m%} %{\e[1;32m%}[%m:%{\e[1;34m%}%~%{\e[1;32m%}] %{\e[1;31m%}%#%{\e[0m%} '
+
+
+### Строка приглашения mysql - [time] host:db>_
+export MYSQL_PS1='[\R:\m:\s]\ \h:\d>\_'
+
+
 ### ВАЖНО! Для нормальной совместной работы над файлами нужен групповой umask
 umask 0002
-
-
-### Стандартное содержимое ~/.zshrc,
-# Настройки zsh, которые он сохраняет в .zshrc,
-# если выполнить процедуру конфигурации при логине.
-# Единственная правка — замена пути на $HOME.
-
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-bindkey -e
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename "$HOME/.zshrc"
-
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
 
