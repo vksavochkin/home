@@ -63,3 +63,7 @@ set expandtab
 " /* vi:set ts=8:set noexpandtab: */
 set modeline
 
+" Некоторые типы файлов определяются не так, как я хочу
+" virsh edit $domainname
+au BufNewFile,BufRead /tmp/virsh*       setf xml
+
