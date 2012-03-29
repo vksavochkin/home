@@ -5,7 +5,9 @@
 	quotepath = false
 	sharedRepository = group
 [merge]
+	log = 32
 	renamelimit = 16384
+	renormalize = true
 [log]
 	date = iso
 [color]
