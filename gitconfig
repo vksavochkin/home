@@ -8,6 +8,8 @@
 	log = 32
 	renamelimit = 16384
 	renormalize = true
+[push]
+	default = upstream
 [log]
 	date = iso
 [color]
