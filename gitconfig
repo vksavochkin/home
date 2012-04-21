@@ -9,7 +9,8 @@
 	renamelimit = 16384
 	renormalize = true
 [push]
-	default = upstream
+	# There is no "upstream" feature in debian's git 1:1.7.2.5-3
+	default = current
 [log]
 	date = iso
 [color]
