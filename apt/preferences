@@ -1,8 +1,24 @@
+Explanation: target release and security updates
 Package: *
 Pin: release o=Debian,n=squeeze
 Pin-Priority: 990
 
+Explanation: target release updates
 Package: *
-Pin: release o=Debian,n=sid
+Pin: release o=Debian,n=squeeze-updates
+Pin-Priority: 990
+
+Explanation: try to update installed backports too
+Package: *
+Pin: release o=Debian Backports,n=squeeze-backports
+Pin-Priority: 100
+
+Explanation: testing allowed if there is no corresponding stable package
+Package: *
+Pin: release o=Debian,n=wheezy
 Pin-Priority: 10
 
+Explanation: no unstable packages should be installed implicitly
+Package: *
+Pin: release o=Debian,n=sid
+Pin-Priority: -100
