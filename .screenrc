@@ -1,0 +1,30 @@
+# ~/.screenrc - только исправленные куски системного /etc/screenrc
+startup_message off
+vbell on
+vbell_msg "   Wuff  ----  Wuff!!  "
+
+# Define a bit bigger scrollback
+defscrollback 16384
+
+# Выводим в последней строке терминала список открытых окон screen
+hardstatus alwayslastline '%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<  -- %h'
+
+# To get screen to add lines to xterm's scrollback buffer, uncomment the
+# following termcapinfo line which tells xterm to use the normal screen buffer
+# (which has scrollback), not the alternate screen buffer.
+#
+termcapinfo xterm|xterms|xs|rxvt ti@:te@
+
+# Enable non-blocking mode to better cope with flaky ssh connections.
+defnonblock 5
+
+# ------------------------------------------------------------------------------
+# STARTUP SCREENS
+# ------------------------------------------------------------------------------
+
+screen 9 -t top
+screen 8 -t daemon
+screen 1 -t shell
+screen 2 -t vim
+screen 3 -t logs
+screen
