@@ -22,9 +22,9 @@ defnonblock 5
 # STARTUP SCREENS
 # ------------------------------------------------------------------------------
 
-screen 9 -t top
-screen 8 -t daemon
-screen 1 -t shell
-screen 2 -t vim
-screen 3 -t logs
+screen -t top 9
+screen -t daemon 8
+screen -t shell 0
+screen -t vim 1
+screen -t logs 2
 screen
