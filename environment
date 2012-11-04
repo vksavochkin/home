@@ -1,2 +1,0 @@
-# /etc/environment
-VIRSH_DEFAULT_CONNECT_URI="qemu:///system"

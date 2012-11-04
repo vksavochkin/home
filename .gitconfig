@@ -1,6 +1,12 @@
-# /etc/gitconfig
+# ~/.gitconfig
 # vi: set noexpandtab tabstop=8:
 
+### PRIVATE SECTION ###
+[user]
+	name = Vladimir Savochkin
+	email = savochkin@lavabit.com
+
+### PUBLIC SECTION ###
 [core]
 	quotepath = false
 	sharedRepository = group
@@ -28,3 +34,5 @@
 	st = status
 	unstage = reset HEAD
 	ru = remote update
+[filter "sed"]
+	clean = sed -f %f.sed
