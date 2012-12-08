@@ -3,8 +3,8 @@
 
 ### PRIVATE SECTION ###
 [user]
-	name = Vladimir Savochkin
-	email = savochkin@lavabit.com
+#	name = Vladimir Savochkin
+#	email = savochkin@lavabit.com
 
 ### PUBLIC SECTION ###
 [core]
