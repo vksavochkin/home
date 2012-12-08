@@ -1,0 +1,9 @@
+#!/bin/sh -e
+git remote update
+git add -A .
+now=`date --rfc-3339=s`
+stashOut=`git stash save "before rebase $now"`
+echo "$stashOut"
+git rebase
+echo "$stashOut" | grep -q "No local changes to save" || git stash pop
+git add -A .
