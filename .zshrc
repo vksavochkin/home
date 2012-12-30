@@ -124,3 +124,4 @@ fi
 
 ### Прочие алиасы
 alias sauu='sudo apt-get update; sudo apt-get upgrade'
+alias cd..='cd ..'
