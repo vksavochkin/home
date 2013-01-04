@@ -103,7 +103,9 @@ RPROMPT=$''
 export MYSQL_PS1='[\R:\m]\ \h:\d>\_'
 
 
-### Полезные алиасы для ls
+### Полезные алиасы для cd, ls
+alias cd..='cd ..'
+alias cd-='cd -'
 # формат даты всегда ISO
 alias ls='ls -F --color=auto --time-style=long-iso'
 alias ll='ls -l'
@@ -122,5 +124,11 @@ else
 fi
 
 
-### Прочие алиасы
+### Алиасы для администратора
+alias suod='echo "zsh: Rule #2) Think before you type."; sudo -k'
 alias sauu='sudo apt-get update; sudo apt-get upgrade'
+alias sagi='sudo apt-get install'
+
+
+###############################################################
+### Локальные определения, алиасы, и т.п.
