@@ -134,6 +134,7 @@ fi
 ### Алиасы для администратора
 alias suod='echo "zsh: Rule #2) Think before you type."; sudo -k'
 alias sauu='sudo apt-get update; sudo apt-get upgrade'
+alias saud='sudo apt-get update; sudo apt-get dist-upgrade'
 alias sagi='sudo apt-get install'
 
 
