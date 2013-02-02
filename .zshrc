@@ -24,6 +24,13 @@ HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
+# Setting ignoring of duplicates
+setopt hist_ignore_all_dups
+
+# A useful trick to prevent particular entries from being recorded
+# into a history by preceding them with at least one space
+setopt hist_ignore_space
+
 # Use modern completion system
 autoload -Uz compinit
 compinit
