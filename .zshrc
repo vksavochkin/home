@@ -62,6 +62,14 @@ precmd()
     case "$TERM" in
         *xterm*|screen|rxvt|(dt|k|E)term*)
             print -Pn "\e]2; [$HOST %~]\a"
+
+            # Выводим полную дату, если начался новый день.
+            # TODO: менять PROMPT
+            newDate=`date +%F`
+            if [ "_$oldDate" != "_$newDate" ]; then
+                print "\e[1;32m[\e[33m`date --rfc-3339=seconds`\e[32m]\e[0m"
+                oldDate=$newDate
+            fi
         ;;
     esac
 }
