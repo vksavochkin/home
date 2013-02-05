@@ -38,4 +38,4 @@
 [filter "sed"]
 	clean = sed -f %f.sed
 [filter "xsltproc"]
-	clean = xsltproc -f %f.xslt
+	clean = xsltproc %f.xslt %f
