@@ -1,5 +1,6 @@
 # ~/.gitconfig
 # vi: set noexpandtab tabstop=8:
+# encoding: utf-8
 
 ### PRIVATE SECTION ###
 [user]
@@ -15,7 +16,6 @@
 	renamelimit = 16384
 	renormalize = true
 [push]
-	# There is no "upstream" feature in debian's git 1:1.7.2.5-3
 	default = current
 [log]
 	date = iso
@@ -30,6 +30,9 @@
 	bv = branch -v
 	ci = commit
 	co = checkout
+	gchanged = whatchanged remotes/origin/master..HEAD
+	gdraft = push origin HEAD:refs/drafts/master
+	greview = push origin HEAD:refs/for/master
 	last = log -1 HEAD
 	up = ! git-update
 	ru = remote update
