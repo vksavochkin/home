@@ -24,6 +24,7 @@
 	status = auto
 	branch = auto
 [alias]
+	amend = commit --amend
 	b = branch
 	ba = branch -a
 	bav = branch -av
