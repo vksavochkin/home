@@ -6,6 +6,10 @@
 # TODO: эта настройка должна действовать на всех несистемных пользователей.
 umask 0002
 
+### set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
 
 ### Включение из /etc/zsh/newuser.zshrc.recommended
 # Так как в разных дистрибутивах там разные настройки,
@@ -108,7 +112,7 @@ export FQDN="`hostname --fqdn`"
 # Часы справа портят копипаст с консоли, надоело,
 # поэтому у меня они теперь слева.
 # Тускло, с ярким pwd:
-PROMPT=$'%{\e[32m%}[%{\e[33m%}%D{%H:%M:%S}%{\e[32m%}]%{\e[0m%} %{\e[32m%}[%m %{\e[1;34m%}%~%{\e[0;32m%}] %{\e[31m%}%#%{\e[0m%} '
+PROMPT=$'%{\e[32m%}[%{\e[33m%}%D{%H:%M:%S}%{\e[32m%}]%{\e[0m%} %{\e[32m%}['"${debian_chroot:+($debian_chroot)}"$'%m %{\e[1;34m%}%~%{\e[0;32m%}] %{\e[31m%}%#%{\e[0m%} '
 # На всякий случай сотрем, если от прошлого запуска что-нибудь осталось
 RPROMPT=$''
 
